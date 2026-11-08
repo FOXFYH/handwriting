@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#f6f1e7" />
+<title>手写输入法 · 书写能力考察</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">写</span>
+      <div class="brand-text">
+        <h1>手写输入法</h1>
+        <p>书写能力考察 · 浏览器本地识别 · 可离线</p>
+      </div>
+    </div>
+    <div class="engine-status loading" id="engineStatus">
+      <span class="dot"></span><span id="engineStatusText">引擎加载中…</span>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <section class="card quiz-card">
+      <div class="quiz-meta">
+        <span class="tag" id="qProgress">第 1 / 10 题</span>
+        <span class="hint" id="qCharHint">请写第 1 个字</span>
+      </div>
+      <div class="word-display" id="wordDisplay"></div>
+      <div class="word-pinyin" id="wordPinyin"></div>
+      <div class="mode-switch" role="group" aria-label="录入模式">
+        <button type="button" class="mode-btn active" data-mode="single" aria-pressed="true">逐字录入</button>
+        <button type="button" class="mode-btn" data-mode="whole" aria-pressed="false">整词连写</button>
+      </div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite">准备开始，请在右侧手写区书写。</div>
+    </section>
+
+    <section class="card pad-card">
+      <div class="pad-wrap" id="padWrap">
+        <canvas id="pad" width="256" height="256" aria-label="手写画板"></canvas>
+        <div class="pad-tip" id="padTip">在此手写</div>
+      </div>
+      <div class="pad-tools">
+        <button type="button" id="btnUndo">撤销一笔</button>
+        <button type="button" id="btnClear">清空</button>
+        <button type="button" id="btnJudge" class="primary" hidden>完成识别</button>
+      </div>
+      <div class="candidates" id="candidates" aria-label="候选字"></div>
+      <div class="candidates-empty" id="candidatesEmpty">写完一笔后自动识别，点候选字上屏</div>
+    </section>
+
+  </main>
+
+  <section class="card answer-card">
+    <div class="answer-head">
+      <span>答案区（只读）</span>
+      <div class="answer-tools">
+        <button type="button" id="btnDelChar">删掉最后一个字</button>
+        <button type="button" id="btnDelAll">清空答案</button>
+      </div>
+    </div>
+    <div class="answer-box" id="answerBox" aria-readonly="true"></div>
+  </section>
+
+  <details class="debug" id="debugPanel">
+    <summary>调试面板</summary>
+    <div class="debug-grid" id="debugGrid"></div>
+  </details>
+
+  <div class="result-mask" id="resultMask" hidden>
+    <div class="result-card">
+      <h2>本轮结果</h2>
+      <div class="result-score" id="resultScore">0%</div>
+      <div class="result-stats" id="resultStats"></div>
+      <div class="result-detail" id="resultDetail"></div>
+      <button type="button" class="primary" id="btnRestart">再来一轮</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="lib/hanzilookup.min.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
